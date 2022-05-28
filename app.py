@@ -71,4 +71,6 @@ def predict_class(image, model):
 
 	return prediction
 
+st.title('Flower Classifier')
 
+file = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
