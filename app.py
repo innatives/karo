@@ -8,6 +8,7 @@ class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
 tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
+interpreter.resize_tensor_input(0, [img.shape[0],244,244,1], strict=True)
 tflite_interpreter.allocate_tensors()
 
 def set_input_tensor(interpreter, image):
