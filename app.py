@@ -10,6 +10,21 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
 tflite_interpreter.allocate_tensors()
 
+def load_img(path):
+        ## reading file object and making it to pil image and to np array
+        img_l=[]
+        for i in path:
+                img_byte=i.read()
+                img=Image.open(io.BytesIO(img_byte))
+                img=img.resize((224,224),Image.ANTIALIAS)
+                if img.mode!='L':
+                        img=img.convert('L')
+                img_arr=np.array(img,dtype='float32')/255
+                img_arr=np.expand_dims(img_arr,axis=-1)
+                img_l.append(img_arr)
+        img=np.stack(img_l)
+        return img
+
 def set_input_tensor(interpreter, image):
     """Sets the input tensor."""
     tensor_index = interpreter.get_input_details()[0]['index']
