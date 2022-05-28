@@ -84,7 +84,7 @@ else:
 	slot = st.empty()
 	slot.text('Running inference....')
 
-	test_image = Image.open(file)
+	test_image = Image.open(inp_t)
 
 	st.image(test_image, caption="Input Image", width = 400)
 
