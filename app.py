@@ -38,6 +38,7 @@ uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
 if uploaded_file is not None:		
     img = Image.open(uploaded_file)
+    img = tf.image.convert_image_dtype(img, tf.uint8)
     st.image(img, caption="Input Image", width = 400)
     img_array = tf.keras.utils.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0)
