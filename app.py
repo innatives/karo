@@ -13,7 +13,10 @@ uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
 
 tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
-tflite_interpreter.resize_tensor_input(0, [uploaded_file.shape[0],224,224,1], strict=True)
+input_details = tflite_interpreter.get_input_details()
+req_input_size = (2, 128, 200, 1) #Your input size
+model.resize_tensor_input(input_details[0]['index'], req_input_size)
+model.allocate_tensors()
 tflite_interpreter.allocate_tensors()
 
 def set_input_tensor(interpreter, image):
