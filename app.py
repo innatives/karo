@@ -9,6 +9,9 @@ class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
+uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
+
+
 tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
 tflite_interpreter.allocate_tensors()
 
@@ -36,13 +39,12 @@ def load_model():
 st.title('Choroby pomidorów')
 
 ## Input Fields
-uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
+
 
 if uploaded_file is not None:		
-    img = Image.open(uploaded_file)
+    img = Image.open(uploaded_file, target_size=(224, 224))
     img_array = tf.keras.utils.img_to_array(img)	
     img_array = tf.expand_dims(img_array, 0)
-    test_image = tf.image.resize(img, [224, 224])
     st.image(img, caption="Input Image", width = 400)
 
 
