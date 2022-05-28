@@ -13,7 +13,7 @@ interpreter.allocate_tensors()
 # Get input and output tensors.
 input_details = interpreter.get_input_details()
 input_details [{'name': 'input',
-  'index': 88,
+  'index': 4,
   'shape': array([  1, 224, 224,   3], dtype=int32),
   'shape_signature': array([  1, 224, 224,   3], dtype=int32),
   'dtype': numpy.uint8,
