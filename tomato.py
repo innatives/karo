@@ -85,5 +85,5 @@ with st.spinner('Klasyfikacja ...'):
     time.sleep(2)
   # st.success('Done! Please check output in sidebar..')
 
-st.header("Możliwości: ")
+st.header("Choroba: ")
 st.success(prediction)
