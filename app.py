@@ -3,7 +3,6 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 from tensorflow.keras.preprocessing import image
-from tflite_runtime.interpreter import Interpreter
 
 class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 
