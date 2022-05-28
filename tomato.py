@@ -19,7 +19,7 @@ st.text('Link for reference documents are available at bottom of page')
 st.write('\n')
 
 image = Image.open('user_image.jpg')
-u_img=image.resize((299,299))
+u_img=  image.resize((299,299))
 show = st.image(u_img)
 
 #Disabling warning
