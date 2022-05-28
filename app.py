@@ -42,6 +42,6 @@ if uploaded_file is not None:
     img_array = tf.keras.utils.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0)
 
-suggestion = get_predictions(input_image =img_array)
-st.success(suggestion)
-
+if st.button("Sprawdź pomidora"):
+    suggestion = get_predictions(input_image =img_array)
+    st.success(suggestion)
