@@ -35,7 +35,7 @@ st.title('Flower Classifier')
 ## Input Fields
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 if uploaded_file is not None:		
-    img = Image.open(file)
+    img = Image.open(uploaded_file)
     st.image(img, caption="Input Image", width = 400)
     print(value)
     img_array = tf.keras.preprocessing.image.img_to_array(img)
