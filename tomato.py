@@ -11,7 +11,7 @@ st.subheader('Find out whether there is a tumor \U0001F534 in the brain (or) \
          not \U0001F7E2 by uploading the MRI \U0001F4C1 of it ')
           
 
-class_labels={0:'No \U0001F7E2',1:'a \U0001F534'}
+class_labels={0:'Bakteria',1:'Mozaika',2:'Pleśń',3:'Zaraza ziemniaczana'}
 
 #st.subheader('Upload Brain MRI'+'\U0001F4C1')
 
