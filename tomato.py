@@ -12,6 +12,7 @@ import base64
 
 # streamlit interface 
 st.title("Choroby pomidorów")
+st.image(logo.png)
 st.text("Karointhegarden")
 # st.text('This App classifies a flower image into Daisy/Dandelion/Rose/Sunflower/Tulip')
 # For newline
