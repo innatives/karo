@@ -1,99 +1,114 @@
-import streamlit as st
-from tflite_runtime.interpreter import Interpreter 
-from PIL import Image, ImageOps
+from os import write
+from numpy.core.fromnumeric import argmax
+from numpy.lib.type_check import imag
+import tflite_runtime.interpreter as tflite
+from PIL import Image
 import numpy as np
-import requests
-import os
-from io import BytesIO
-import wget
+import urllib.request
+import streamlit as st
 import time
-
-# def download_model():
-#     model_path = 'saved_model.tflite'
-#     if not os.path.exists(model_path):
-#         url = 'saved_model.tflite'
-#         filename = wget.download(url)
-#     else:
-#         print("Model is here.")
-
-def file_selector(folder_path='.'):
-    filenames = os.listdir(folder_path)
-    selected_filename = st.selectbox('Select a file inside images collections: ', filenames)
-    return os.path.join(folder_path, selected_filename)
+import base64
 
 
-def load_labels(path): # Read the labels from the text file as a Python list.
-    with open(path, 'r') as f:
-        return [line.strip() for i, line in enumerate(f.readlines())]
+# streamlit interface 
+st.title("Flower Image Classification App")
+st.text("Developed by Subramanian Hariharan")
+st.text('This App classifies a flower image into Daisy/Dandelion/Rose/Sunflower/Tulip')
+st.text('Link for reference documents are available at bottom of page')
+# For newline
+st.write('\n')
+#show a display image
+image = Image.open('diplay_image.jpg')
+u_img=image.resize((299,299))
+show = st.image(u_img)
 
-def set_input_tensor(interpreter, image):
-    tensor_index = interpreter.get_input_details()[0]['index']
-    input_tensor = interpreter.tensor(tensor_index)()[0]
-    input_tensor[:, :] = image
+#Disabling warning
+st.set_option('deprecation.showfileUploaderEncoding', False)
 
-def classify_image(interpreter, image, top_k=1):
-    set_input_tensor(interpreter, image)
+  
+#function to process image
+def process_image(img):    
+    img = img.resize((224,224),Image.NEAREST)
+    x = np.array(img,dtype='float32')
+    x = x/255
+    x = np.expand_dims(x, axis=0)
+    return x 
 
+#tflite loading the  model and getting ready for predictions
+interpreter = tflite.Interpreter(model_path='mobilet_flower_v3.tflite')
+interpreter.allocate_tensors()
+input_details = interpreter.get_input_details()
+input_index = input_details[0]['index']
+output_details = interpreter.get_output_details()
+output_index = output_details[0]['index']
+
+#model prediction
+def predict(X):
+    interpreter.set_tensor(input_index, X)
     interpreter.invoke()
-    output_details = interpreter.get_output_details()[0]
-    output = np.squeeze(interpreter.get_tensor(output_details['index']))
+    preds = interpreter.get_tensor(output_index)
+    return preds[0]
 
-    scale, zero_point = output_details['quantization']
-    output = scale * (output - zero_point)
+labels = ['daisy', 'dandelion', 'rose', 'sunflower','tulip']
+label_dict = {0:'daisy',1: 'dandelion', 2:'rose',3: 'sunflower',4:'tulip'}
 
-    ordered = np.argpartition(-output, 1)
-    return [(i, output[i]) for i in ordered[:top_k]][0]
+#decode predictions
+def decode_predictions(pred):
+    result = {c: float(p) for c, p in zip(labels, pred)}
+    result['Prediction']=f'Given image is {label_dict[pred.argmax()]}'
+    return result
 
+#main function for model prediction using tflite model and getting decoded results
+def get_prediction(u_img):
+    X = process_image(u_img)
+    preds = predict(X)
+    results = decode_predictions(preds)
+    return results
 
+user_option = st.radio("Select an Option: ", ('Upload','URL'))
+st.write(user_option)
+if (user_option=='URL'):
+    url = st.text_input('Enter Your Image Url(No quotes plse)')
+    st.text('You have an error message if you take more than 5 sec to enter URL.')
+    st.text("You may ignore error and proceed")
+    time.sleep(5)
+    st.write(url)    
+    urllib.request.urlretrieve(url,"user_image.jpg")
+    u_img = Image.open("user_image.jpg")
+    u_img = u_img.resize((229,229))
+    show.image(u_img, 'Uploaded Image')
+elif (user_option=='Upload') :
+    #take an image from user and run model prediction
+    st.sidebar.title("Upload Image")
+    #Give an option for uploading a file
+    uploaded_file = st.sidebar.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
+    if uploaded_file is not None:
+        u_img = Image.open(uploaded_file)
+        u_img = u_img.resize((299,299))
+        show.image(u_img, 'Uploaded Image')
+    elif uploaded_file is None:        
+        st.sidebar.write("Please upload an Image to Classify")
 
-model_path = "saved_model.tflite"
-label_path = "labels.txt"
+#st.sidebar.button("Click Here to Classify")
 
+with st.spinner('Classifying ...'):            
+    prediction = get_prediction(u_img)
+    time.sleep(2)
+    st.success('Done! Please check output in sidebar..')
 
-def main():
-    st.title("Image classification")
-    image_file = st.file_uploader("Upload Image", type = ['jpg','png','jpeg'])
+st.sidebar.header("Model Prediction of Probabilities and Infernce: ")
+st.sidebar.write(prediction)
+    
+# upload pdf file with instructions
+def st_display_pdf(pdf_file):
+    with open(pdf_file,'rb') as f:
+        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
+    st.markdown(pdf_display, unsafe_allow_html=True)
+        
+doc = st.checkbox('Display Instructions')
+pdf_file_name ="SCREEN SHOTS OF TESTING.pdf"
+if doc:
+    st_display_pdf(pdf_file_name)
 
-    if image_file != None:
-        image1 = Image.open(image_file)
-        rgb_im = image1.convert('RGB') 
-        image = rgb_im.save("saved_image.jpg")
-        image_path = "saved_image.jpg"
-        st.image(image1, width = 450)
-
-    else:
-        folder_path = './images/'
-        filename = file_selector(folder_path=folder_path)
-        st.write('You selected `%s`' % filename)
-        image = Image.open(filename)
-        image_path = filename
-        print(image_path)
-        st.image(image,width = 450)
-        #st.image(image,use_column_width=True)
-
-    if st.button("Make Prediction"):
-        interpreter = Interpreter(model_path)
-        print("Model Loaded Successfully.")
-
-        interpreter.allocate_tensors()
-        _, height, width, _ = interpreter.get_input_details()[0]['shape']
-        print("Image Shape (", width, ",", height, ")")
-        image = Image.open(image_path).convert('RGB').resize((width, height))
-
-        # Run Inference.
-        time1 = time.time()
-        label_id, prob = classify_image(interpreter, image)
-        time2 = time.time()
-        classification_time = np.round(time2-time1, 3)
-        print("Classificaiton Time =", classification_time, "seconds.")
-
-        # Read class labels.
-        labels = load_labels(label_path)
-
-        # Return the classification label of the image.
-        classification_label = labels[label_id]
-        print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
-        st.write("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
-
-if __name__ == '__main__':
-    main()
+st.text(f'Flower_Classification_App_v1_{time.ctime()}')
