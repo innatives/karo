@@ -65,8 +65,8 @@ def get_prediction(u_img):
     results = decode_predictions(preds)
     return results
 
-user_option = st.radio("Select an Option: ", ('Upload','URL'))
-st.write(user_option)
+# user_option = st.radio("Select an Option: ", ('Upload','URL'))
+# st.write(user_option)
 
 #take an image from user and run model prediction
 st.sidebar.title("Upload Image")
