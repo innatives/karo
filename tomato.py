@@ -9,9 +9,9 @@ import wget
 import time
 
 # def download_model():
-#     model_path = 'my_model2.tflite'
+#     model_path = 'saved_model.tflite'
 #     if not os.path.exists(model_path):
-#         url = 'https://frenzy86.s3.eu-west-2.amazonaws.com/python/models/my_model2.tflite'
+#         url = 'saved_model.tflite'
 #         filename = wget.download(url)
 #     else:
 #         print("Model is here.")
