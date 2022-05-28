@@ -31,6 +31,11 @@ def get_predictions(input_image):
     return pred_class
 
 @st.cache(allow_output_mutation=True)
+
+def load_model():
+	model = tf.keras.models.load_model('./flower_model_trained.hdf5')
+	return model
+
 ## Input Fields
 if uploaded_file is not None:	
     img = tf.keras.preprocessing.image.load_img(uploaded_file , grayscale=False, color_mode='rgb', target_size=(224,224), interpolation='nearest')
