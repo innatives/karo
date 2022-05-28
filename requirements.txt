@@ -6,6 +6,4 @@ tensorflow-estimator
 tensorflow-cpu
 pillow
 matplotlib
-#tflite runtime https://www.tensorflow.org/lite/guide/python
-https://github.com/google-coral/pycoral/releases/download/release-frogfish/tflite_runtime-2.5.0-cp36-cp36m-linux_x86_64.whl
 wget
