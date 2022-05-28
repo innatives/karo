@@ -74,7 +74,7 @@ if inp_t:
         
         st.warning('** Uploaded {} images [View images in side Panel]'.format(img.shape[0]))
         
-        res_prob = np.array(pred(img))  # convert predictions list to array
+        res_prob,res  = np.array((pred(img)))  # convert predictions list to array
          
         fig,ax=plt.subplots()
           
