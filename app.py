@@ -44,5 +44,5 @@ if uploaded_file is not None:
     st.image(img, caption="Input Image", width = 400)
 
 if st.button("Sprawdź pomidora"):
-    suggestion = get_predictions(img =img_array)
+    suggestion = get_predictions(input_image =img_array)
     st.success(suggestion)
