@@ -1,20 +1,49 @@
-import streamlit as st
-import tensorflow as tf
+import io
 import numpy as np
 from PIL import Image
+import streamlit as st
+import tensorflow as tf
+import matplotlib.pyplot as plt
 
+st.title('Brain \U0001F9E0 Tumor Detector ')
 
-st.set_option('deprecation.showfileUploaderEncoding', False)
+st.subheader('Find out whether there is a tumor \U0001F534 in the brain (or) \
+         not \U0001F7E2 by uploading the MRI \U0001F4C1 of it ')
+          
 
+class_labels={0:'No \U0001F7E2',1:'a \U0001F534'}
+
+#st.subheader('Upload Brain MRI'+'\U0001F4C1')
+
+st.write('Find some MRI images here : https://www.kaggle.com/navoneel/brain-mri-images-for-brain-tumor-detection')
+
+inp_t = st.file_uploader(label='Upload MRI here',accept_multiple_files=True)
+
+#load image
+@st.cache(show_spinner=False)
+def load_img(path):
+        ## reading file object and making it to pil image and to np array
+        img_l=[]
+        for i in path:
+                img_byte=i.read()
+                img=Image.open(io.BytesIO(img_byte))
+                img=img.resize((256,256),Image.ANTIALIAS)
+                if img.mode!='L':
+                        img=img.convert('L')
+                img_arr=np.array(img,dtype='float32')/255
+                img_arr=np.expand_dims(img_arr,axis=-1)
+                img_l.append(img_arr)
+        img=np.stack(img_l)
+        return img
 
 ## prediction
 @st.cache(show_spinner=False)
 def pred(img):
     # Load TFLite model and allocate tensors.
-    interpreter = tf.lite.Interpreter(model_path = r'saved_model.tflit')
+    interpreter = tf.lite.Interpreter(model_path = r'saved_model.tflite')
 
     # setting input size
-    interpreter.resize_tensor_input(0, [img.shape[0],244,244,1], strict=True)
+    interpreter.resize_tensor_input(0, [img.shape[0],256,256,1], strict=True)
     interpreter.allocate_tensors()
     #interpreter = load_model()
     # Get input and output tensors.
@@ -73,3 +102,4 @@ if inp_t:
 
 ## prints model arch flow chart
 #if st.sidebar.checkbox('Model Architecture'):            
+#        st.sidebar.write(model)
