@@ -17,7 +17,7 @@ st.text("Karointhegarden")
 # For newline
 st.write('\n')
 
-image = Image.open('user_image.jpg')
+image = Image.open('user_image.png')
 u_img=  image.resize((299,299))
 show = st.image(u_img)
 
