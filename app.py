@@ -38,9 +38,9 @@ uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
 if uploaded_file is not None:		
     img = Image.open(uploaded_file)
-    img = tf.image.resize(img, [224, 224])
-    st.image(img, caption="Input Image", width = 400)
-    img_array = tf.keras.utils.img_to_array(img)
+    img2 = tf.image.resize(img, [224, 224])
+    st.image(img2, caption="Input Image", width = 400)
+    img_array = tf.keras.utils.img_to_array(img2)
     img_array = tf.expand_dims(img_array, 0)
 
 if st.button("Sprawdź pomidora"):
