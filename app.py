@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 from tensorflow.keras.preprocessing import image
 
-class_labels = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
+class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
