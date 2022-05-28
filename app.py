@@ -6,6 +6,22 @@ class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
+uploaded_file = st.file_uploader(label='Upload MRI here',accept_multiple_files=True)
+
+def load_img(path):
+        ## reading file object and making it to pil image and to np array
+        img_l=[]
+        for i in path:
+                img_byte=i.read()
+                img=Image.open(io.BytesIO(img_byte))
+                img=img.resize((256,256),Image.ANTIALIAS)
+                if img.mode!='L':
+                        img=img.convert('L')
+                img_arr=np.array(img,dtype='float32')/255
+                img_arr=np.expand_dims(img_arr,axis=-1)
+                img_l.append(img_arr)
+        img=np.stack(img_l)
+        return img
 
 tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
 tflite_interpreter.resize_tensor_input(0, [img.shape[0],244,244,1], strict=True)
@@ -35,7 +51,7 @@ def load_model():
 st.title('Choroby pomidorów')
 
 ## Input Fields
-uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
+
 
 if uploaded_file is not None:		
     img = Image.open(uploaded_file)
