@@ -35,9 +35,6 @@ st.title('Choroby pomidorów')
 
 ## Input Fields
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
-uploaded_file = tf.image.resize(uploaded_file, [224, 224])
-uploaded_file = np.expand_dims(uploaded_file, axis = 0)
-
 
 if uploaded_file is not None:		
     img = Image.open(uploaded_file)
