@@ -6,8 +6,8 @@ from PIL import Image
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
-    tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
-    tflite_interpreter.allocate_tensors()
+tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
+tflite_interpreter.allocate_tensors()
 
 def set_input_tensor(interpreter, image):
     """Sets the input tensor."""
