@@ -75,7 +75,7 @@ def predict_class(image, model):
 st.title('Flower Classifier')
 
 inp_t = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
-
+model = load_model()
 
 if inp_t is None:
 	st.text('Waiting for upload....')
