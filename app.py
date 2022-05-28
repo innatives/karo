@@ -27,7 +27,7 @@ def predict_class(image, model):
 model = load_model()
 st.title('Flower Classifier')
 
-file = st.file_uploader("Upload an image of a tomato, type=["jpg", "png"])
+file = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
 
 
 if file is None:
