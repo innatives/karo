@@ -27,7 +27,7 @@ def get_predictions(input_image):
 
 @st.cache(allow_output_mutation=True)
 
-st.title('Choroby pomidorów')
+st.title('Pomidory')
 
 ## Input Fields
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
