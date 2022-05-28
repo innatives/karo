@@ -19,7 +19,7 @@ output_details = tflite_interpreter.get_output_details()
 
 print()
 print("Input details:")
-print(input_details)
+ st.success(input_details)
 print()
 print("Output details:")
 print(output_details)
