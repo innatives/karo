@@ -43,9 +43,6 @@ if uploaded_file is not None:
     test_image = tf.image.resize(img, [224, 224])
     st.image(img, caption="Input Image", width = 400)
 
-suggestion = get_predictions(input_image =img_array)
-output = st.success(suggestion)
-
 if st.button("Sprawdź pomidora"):
     suggestion = get_predictions(input_image =img_array)
     st.success(suggestion)
