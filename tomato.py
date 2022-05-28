@@ -11,10 +11,9 @@ import base64
 
 
 # streamlit interface 
-st.title("Flower Image Classification App")
-st.text("Developed by Subramanian Hariharan")
-st.text('This App classifies a flower image into Daisy/Dandelion/Rose/Sunflower/Tulip')
-st.text('Link for reference documents are available at bottom of page')
+st.title("Choroby pomidorów")
+st.text("Karointhegarden")
+# st.text('This App classifies a flower image into Daisy/Dandelion/Rose/Sunflower/Tulip')
 # For newline
 st.write('\n')
 
@@ -69,7 +68,7 @@ def get_prediction(u_img):
 # st.write(user_option)
 
 #take an image from user and run model prediction
-st.title("Upload Image")
+st.title("Dodaj plik")
  #Give an option for uploading a file
 uploaded_file = st.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
 if uploaded_file is not None:
@@ -84,7 +83,7 @@ elif uploaded_file is None:
 with st.spinner('Klasyfikacja ...'):            
     prediction = get_prediction(u_img)
     time.sleep(2)
-    st.success('Done! Please check output in sidebar..')
+  # st.success('Done! Please check output in sidebar..')
 
-st.sidebar.header("Możliwości: ")
+st.header("Możliwości: ")
 st.success(prediction)
