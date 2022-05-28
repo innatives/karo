@@ -46,13 +46,7 @@ else:
 
 	st.image(test_image, caption="Input Image", width = 400)
 
-	pred = predict_class(np.asarray(test_image), model)
 
-	class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
-
-	result = class_names[np.argmax(pred)]
-
-	output = 'The image is a ' + result
 
 	slot.text('Done')
 
