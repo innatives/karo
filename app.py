@@ -36,13 +36,12 @@ def load_model():
 	return model
 
 
-
-
 ## Input Fields
 
 
-if uploaded_file is not None:		
-    img = Image.open(uploaded_file)
+if uploaded_file is not None:	
+    img = tf.keras.preprocessing.image.load_img(path , grayscale=False, color_mode='rgb', target_size=(224,224,3), interpolation='nearest')
+    st.image(img)	
     img_array = tf.keras.utils.img_to_array(img)	
     img_array = tf.expand_dims(img_array, 0)
     st.image(img, caption="Input Image", width = 400)
