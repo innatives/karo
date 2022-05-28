@@ -44,6 +44,8 @@ def predict_class(image, model):
 
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 if uploaded_file is not None:
+    test_image = Image.open(file)
+    st.image(test_image, caption="Input Image", width = 400)
     img = tf.keras.preprocessing.image.load_img(path , grayscale=False, color_mode='rgb', target_size=(224,224,3), interpolation='nearest')
     st.image(img)
     print(value)
