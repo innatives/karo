@@ -27,8 +27,6 @@ def get_predictions(input_image):
 
 @st.cache(allow_output_mutation=True)
 
-
-
 st.title('Choroby pomidorów')
 
 ## Input Fields
