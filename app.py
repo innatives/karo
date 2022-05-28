@@ -11,6 +11,8 @@ def load_model():
 	model = tf.keras.models.load_model('./flower_model_trained.hdf5')
 	return model
 
+interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
+interpreter.allocate_tensors()
 
 def predict_class(image, model):
 
