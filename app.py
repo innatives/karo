@@ -2,6 +2,8 @@ import streamlit as st
 import tensorflow as tf
 import numpy as np
 from PIL import Image
+from tensorflow.keras.preprocessing import image
+
 class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 
 
