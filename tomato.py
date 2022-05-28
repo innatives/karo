@@ -65,8 +65,7 @@ def get_prediction(u_img):
     results = decode_predictions(preds)
     return results
 
-user_option = st.radio("Select an Option: ", ('Upload','URL'))
-st.write(user_option)
+
 if (user_option=='URL'):
     url = st.text_input('Enter Your Image Url(No quotes plse)')
     st.text('You have an error message if you take more than 5 sec to enter URL.')
