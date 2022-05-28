@@ -1,5 +1,4 @@
 import streamlit as st
-import io
 import tensorflow as tf
 import numpy as np
 from PIL import Image
@@ -7,22 +6,6 @@ class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
-uploaded_file = st.file_uploader(label='Upload MRI here')
-
-def load_img(path):
-        ## reading file object and making it to pil image and to np array
-        img_l=[]
-        for i in path:
-                img_byte=i.read()
-                img=Image.open(io.BytesIO(img_byte))
-                img=img.resize((256,256),Image.ANTIALIAS)
-                if img.mode!='L':
-                        img=img.convert('L')
-                img_arr=np.array(img,dtype='float32')/255
-                img_arr=np.expand_dims(img_arr,axis=-1)
-                img_l.append(img_arr)
-        img=np.stack(img_l)
-        return img
 
 tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
 tflite_interpreter.allocate_tensors()
@@ -51,14 +34,15 @@ def load_model():
 st.title('Choroby pomidorów')
 
 ## Input Fields
-
+uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
 if uploaded_file is not None:		
-    img = load_img(uploaded_file)
-    st.image(img, caption="Input Image", width = 400)
-    img_array = tf.keras.utils.img_to_array(img)
+    img = Image.open(uploaded_file)
+    img_array = tf.keras.utils.img_to_array(img)	
     img_array = tf.expand_dims(img_array, 0)
+    test_image = tf.image.resize(img, [224, 224])
+    st.image(img, caption="Input Image", width = 400)
 
 if st.button("Sprawdź pomidora"):
-    suggestion = get_predictions(input_image =img_array)
+    suggestion = get_predictions(test_image =img_array)
     st.success(suggestion)
