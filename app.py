@@ -9,6 +9,7 @@ class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
 st.title('Choroby pomidorów')
+
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
 tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
@@ -30,14 +31,7 @@ def get_predictions(input_image):
     return pred_class
 
 @st.cache(allow_output_mutation=True)
-def load_model():
-	model = tf.keras.models.load_model('./flower_model_trained.hdf5')
-	return model
-
-
 ## Input Fields
-
-
 if uploaded_file is not None:	
     img = tf.keras.preprocessing.image.load_img(uploaded_file , grayscale=False, color_mode='rgb', target_size=(224,224), interpolation='nearest')
     img_array = tf.keras.utils.img_to_array(img)	
