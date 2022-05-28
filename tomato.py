@@ -67,3 +67,31 @@ vis_img = st.sidebar.checkbox('Show Uploaded Images')
 ## prints model arch flow chart
 #if st.sidebar.checkbox('Model Architecture'):            
 #        st.sidebar.write(model)
+
+# if file is uploaded
+if inp_t:
+        img = load_img(inp_t)
+        
+        st.warning('** Uploaded {} images [View images in side Panel]'.format(img.shape[0]))
+         
+        fig,ax=plt.subplots()
+          
+        for i in range(len(res)):
+                
+                if res[i] == 0:
+                  pred_conf = (0.5 - res_prob[i]) / 0.5
+                  pred_conf = pred_conf * 100
+                else:
+                  pred_conf = res_prob[i] * 100
+                  
+                st.subheader("*Image "+str(i+1)+" : Model predicts there is {}  tumor with [{} % confidence].*".format(class_labels[res[i]],round(pred_conf,2)))
+                
+                #if st.checkbox('View Image - ' +str(i+1)):
+                           #st.image(img[i],use_column_width=True)
+                st.write('\n')
+                    
+                if vis_img:
+                        st.sidebar.write('{} - Image Dimensions: {}'.format(str(i+1),img[i].shape))
+                        st.sidebar.image(img[i],use_column_width=True)
+        st.markdown('---')
+        st.error('Dont conclude by looking at predictions, just take them as a reference!!')
