@@ -20,7 +20,7 @@ def set_input_tensor(interpreter, image):
     """Sets the input tensor."""
     tensor_index = interpreter.get_input_details()[0]['index']
     input_tensor = interpreter.tensor(tensor_index)()[0]
-    input_tensor[:, :] = cv2.resize(image,(224,224))
+    input_tensor[:, :] = image
 
 def get_predictions(input_image):
     output_details = tflite_interpreter.get_output_details()
