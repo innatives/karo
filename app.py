@@ -44,6 +44,22 @@ def predict_class(image, model):
 
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
+test_image = Image.open(file)
+
+	st.image(test_image, caption="Input Image", width = 400)
+
+	pred = predict_class(np.asarray(test_image), model)
+
+	class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
+
+	result = class_names[np.argmax(pred)]
+
+	output = 'The image is a ' + result
+
+	slot.text('Done')
+
+	st.success(output)
+
 
 if st.button("Get Predictions"):
     suggestion = get_predictions(input_image =img_array)
