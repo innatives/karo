@@ -48,8 +48,8 @@ def predict(X):
     preds = interpreter.get_tensor(output_index)
     return preds[0]
 
-labels = ['Bakteria', 'Mozaika', 'Pleśń', 'Zaraza ziemniaczana']
-label_dict = {0:'Bakteria',1: 'Mozaika', 2:'Pleśń',3: 'Zaraza ziemniaczana'}
+labels = ['Alternarioza', 'Bakteryjna plamistość liści', 'Septorioza', 'TMV', 'Zaraza ziemniaczana', 'Zdrowe']
+label_dict = {0:'Alternarioza',1: 'Bakteryjna plamistość liści', 2:'Septorioza',3: 'TMV',4: 'Zaraza ziemniaczana',5: 'Zdrowe'}
 
 #decode predictions
 def decode_predictions(pred):
