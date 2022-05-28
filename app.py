@@ -35,14 +35,12 @@ st.title('Choroby pomidorów')
 
 ## Input Fields
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
+uploaded_file = tf.image.resize(image, [224, 224])
+uploaded_file = np.expand_dims(image, axis = 0)
 
-def img()
-    uploaded_file = tf.image.resize(image, [224, 224])
-    uploaded_file = np.expand_dims(image, axis = 0)
-    return image2
 
-if image2 is not None:		
-    img = Image.open(image2)
+if uploaded_file is not None:		
+    img = Image.open(uploaded_file)
     st.image(img, caption="Input Image", width = 400)
     img_array = tf.keras.utils.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0)
