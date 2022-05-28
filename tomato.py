@@ -17,21 +17,9 @@ st.text("Karointhegarden")
 # For newline
 st.write('\n')
 
-#take an image from user and run model prediction
-st.title("Dodaj plik")
- #Give an option for uploading a file
-uploaded_file = st.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
-if uploaded_file is not None:
-        u_img = Image.open(uploaded_file)
-        u_img = u_img.resize((224,224))
-        show.image(u_img, 'Uploaded Image')
-elif uploaded_file is None:        
-        st.write("Załaduj plik")
-
-
-# image = Image.open('user_image.png')
-# u_img=  image.resize((299,299))
-# show = st.image(u_img)
+image = Image.open('user_image.png')
+u_img=  image.resize((299,299))
+show = st.image(u_img)
 
 #Disabling warning
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -79,6 +67,16 @@ def get_prediction(u_img):
 # user_option = st.radio("Select an Option: ", ('Upload','URL'))
 # st.write(user_option)
 
+#take an image from user and run model prediction
+st.title("Dodaj plik")
+ #Give an option for uploading a file
+uploaded_file = st.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
+if uploaded_file is not None:
+        u_img = Image.open(uploaded_file)
+        u_img = u_img.resize((224,224))
+        show.image(u_img, 'Uploaded Image')
+elif uploaded_file is None:        
+        st.write("Załaduj plik")
 
 #st.sidebar.button("Kliknij tutaj aby sklasyfikować")
 
