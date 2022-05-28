@@ -1,7 +1,7 @@
 from os import write
 from numpy.core.fromnumeric import argmax
 from numpy.lib.type_check import imag
-import tflite_runtime.interpreter as tflite
+import tensorflow as tf
 from PIL import Image
 import numpy as np
 import urllib.request
