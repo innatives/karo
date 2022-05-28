@@ -99,16 +99,3 @@ with st.spinner('Klasyfikacja ...'):
 st.sidebar.header("Możliwości: ")
 st.sidebar.write(prediction)
     
-# upload pdf file with instructions
-def st_display_pdf(pdf_file):
-    with open(pdf_file,'rb') as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="1000" type="application/pdf">'
-    st.markdown(pdf_display, unsafe_allow_html=True)
-        
-doc = st.checkbox('Display Instructions')
-pdf_file_name ="SCREEN SHOTS OF TESTING.pdf"
-if doc:
-    st_display_pdf(pdf_file_name)
-
-st.text(f'Flower_Classification_App_v1_{time.ctime()}')
