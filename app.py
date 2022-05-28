@@ -26,9 +26,7 @@ def get_predictions(input_image):
     return pred_class
 
 @st.cache(allow_output_mutation=True)
-def load_model():
-	model = tf.keras.models.load_model('./flower_model_trained.hdf5')
-	return model
+
 
 
 st.title('Choroby pomidorów')
@@ -36,8 +34,13 @@ st.title('Choroby pomidorów')
 ## Input Fields
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
+def img()
+    uploaded_file = tf.image.resize(image, [224, 224])
+    uploaded_file = np.expand_dims(image, axis = 0)
+    return image2
+
 if uploaded_file is not None:		
-    img = Image.open(uploaded_file)
+    img = Image.open(image2)
     st.image(img, caption="Input Image", width = 400)
     img_array = tf.keras.utils.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0)
