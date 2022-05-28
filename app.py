@@ -6,7 +6,7 @@ class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
-uploaded_file = st.file_uploader(label='Upload MRI here',accept_multiple_files=True)
+uploaded_file = st.file_uploader(label='Upload MRI here')
 
 def load_img(path):
         ## reading file object and making it to pil image and to np array
