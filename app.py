@@ -30,18 +30,6 @@ def load_model():
 	return model
 
 
-def predict_class(image, model):
-
-	image = tf.cast(image, tf.float32)
-	image = tf.image.resize(image, [180, 180])
-
-	image = np.expand_dims(image, axis = 0)
-
-	prediction = model.predict(image)
-
-	return prediction
-
-
 st.title('Flower Classifier')
 
 file = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
