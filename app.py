@@ -42,32 +42,20 @@ def predict_class(image, model):
 	return prediction
 
 
-model = load_model()
-st.title('Flower Classifier')
+uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
+if uploaded_file is not None:
+    with open(os.path.join("tempDir",uploaded_file.name),"wb") as f:
+        f.write(uploaded_file.getbuffer())
+    path = os.path.join("tempDir",uploaded_file.name)
+    img = tf.keras.preprocessing.image.load_img(path , grayscale=False, color_mode='rgb', target_size=(224,224,3), interpolation='nearest')
+    st.image(img)
+    print(value)
+    if value == 2 or value == 5:
+        img = tf.image.convert_image_dtype(img, tf.uint8)
+    img_array = tf.keras.preprocessing.image.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0)
 
-file = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
 
-
-if file is None:
-	st.text('Waiting for upload....')
-
-else:
-	slot = st.empty()
-	slot.text('Running inference....')
-
-	test_image = Image.open(file)
-
-	st.image(test_image, caption="Input Image", width = 400)
-
-	pred = predict_class(np.asarray(test_image), model)
-
-	class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
-
-	result = class_names[np.argmax(pred)]
-
-	output = 'The image is a ' + result
-
-	slot.text('Done')
-
-	st.success(output)
-
+if st.button("Get Predictions"):
+    suggestion = get_predictions(input_image =img_array)
+    st.success(suggestion)
