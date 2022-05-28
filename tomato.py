@@ -8,7 +8,7 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-	model = tf.keras.models.load_model('./saved_model.pb')
+	model = tf.keras.models.load_model('saved_model.pb')
 	return model
 
 
