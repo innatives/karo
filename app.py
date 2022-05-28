@@ -43,7 +43,7 @@ else:
 
 	pred = predict_class(np.asarray(test_image), model)
 
-	class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
+	class_names = ['Bakteria', 'Mozaika', 'Pleśń', 'Zaraza ziemniaczana']
 
 	result = class_names[np.argmax(pred)]
 
