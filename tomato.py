@@ -54,7 +54,7 @@ label_dict = {0:'Alternarioza',1: 'Bakteryjna plamistość liści', 2:'Septorioz
 #decode predictions
 def decode_predictions(pred):
     result = {c: float(p) for c, p in zip(labels, pred)}
-    result=f'Najprawdopodobniej jest to: {label_dict[pred.argmax()]}'
+    result['Prediction']=f'Najprawdopodobniej jest to: {label_dict[pred.argmax()]}'
     return result
 
 #main function for model prediction using tflite model and getting decoded results
