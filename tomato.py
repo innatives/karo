@@ -18,7 +18,7 @@ st.text('Link for reference documents are available at bottom of page')
 # For newline
 st.write('\n')
 
-# image = Image.open('diplay_image.jpg')
+image = Image.open('user_image.jpg')
 u_img=image.resize((299,299))
 show = st.image(u_img)
 
