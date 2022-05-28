@@ -8,7 +8,7 @@ class_names = ["Bakteria", "Mozaika", "Pleśń", "Zaraza ziemniaczana"]
 
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
-
+st.title('Choroby pomidorów')
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
 
@@ -36,7 +36,7 @@ def load_model():
 	return model
 
 
-st.title('Choroby pomidorów')
+
 
 ## Input Fields
 
