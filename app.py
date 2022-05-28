@@ -8,7 +8,7 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-	model = tf.lite.interpreter('./saved_model.tflite')
+	model = tf.lite.Interpreter(model_path = r'saved_model.tflite')
 	return model
 
 
