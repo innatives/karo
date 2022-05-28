@@ -8,7 +8,7 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-	model = tf.keras.models.load_model('./saved_model.pb')
+	model = tf.keras.models.load_model('./flower_model_trained.hdf5')
 	return model
 
 
@@ -43,7 +43,7 @@ else:
 
 	pred = predict_class(np.asarray(test_image), model)
 
-	class_names = ['Bakteria', 'Mozaika', 'Pleśń', 'Zaraza ziemniaczana']
+	class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
 
 	result = class_names[np.argmax(pred)]
 
