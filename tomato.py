@@ -17,10 +17,7 @@ st.text('This App classifies a flower image into Daisy/Dandelion/Rose/Sunflower/
 st.text('Link for reference documents are available at bottom of page')
 # For newline
 st.write('\n')
-#show a display image
-image = Image.open('diplay_image.jpg')
-u_img=image.resize((299,299))
-show = st.image(u_img)
+
 
 #Disabling warning
 st.set_option('deprecation.showfileUploaderEncoding', False)
