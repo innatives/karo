@@ -9,17 +9,3 @@ st.title('Flower Classifier')
 
 interpreter = tf.lite.Interpreter(model_path="saved_model.tflite")
 interpreter.allocate_tensors()
-
-# Get input and output tensors.
-input_details = interpreter.get_input_details()
-input_details [{'name': 'input',
-  'index': 4,
-  'shape': array([  1, 224, 224,   3], dtype=int32),
-  'shape_signature': array([  1, 224, 224,   3], dtype=int32),
-  'dtype': numpy.uint8,
-  'quantization': (0.0078125, 128),
-  'quantization_parameters': {'scales': array([0.0078125], dtype=float32),
-   'zero_points': array([128], dtype=int32),
-   'quantized_dimension': 0},
-  'sparsity_parameters': {}}]
-
