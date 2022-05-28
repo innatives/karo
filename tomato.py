@@ -35,7 +35,7 @@ def process_image(img):
     return x 
 
 #tflite loading the  model and getting ready for predictions
-interpreter = tflite.Interpreter(model_path='mobilet_flower_v3.tflite')
+interpreter = tflite.Interpreter(model_path='saved_model.tflite')
 interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 input_index = input_details[0]['index']
