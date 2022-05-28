@@ -18,7 +18,7 @@ st.text("Karointhegarden")
 st.write('\n')
 
 image = Image.open('user_image.png')
-u_img=  image.resize((299,299))
+u_img=  image.resize((299,299),Image.BILINEAR)
 show = st.image(u_img)
 
 #Disabling warning
