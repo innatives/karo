@@ -42,9 +42,19 @@ def predict_class(image, model):
 	return prediction
 
 
-uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
+st.title('Flower Classifier')
 
-test_image = Image.open(file)
+file = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
+
+
+if file is None:
+	st.text('Waiting for upload....')
+
+else:
+	slot = st.empty()
+	slot.text('Running inference....')
+
+	test_image = Image.open(file)
 
 	st.image(test_image, caption="Input Image", width = 400)
 
