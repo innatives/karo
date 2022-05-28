@@ -38,10 +38,10 @@ uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
 if uploaded_file is not None:		
     img = Image.open(uploaded_file)
-    img_array = tf.keras.utils.img_to_array(img)	
-    img_array = tf.expand_dims(img_array, 0)
     st.image(img, caption="Input Image", width = 400)
+    img_array = tf.keras.utils.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0)
 
 if st.button("Sprawdź pomidora"):
-    suggestion = get_predictions(img = img_array)
+    suggestion = get_predictions(input_image =img_array)
     st.success(suggestion)
