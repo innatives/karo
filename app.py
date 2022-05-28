@@ -23,7 +23,7 @@ def load_img(path):
                 img_arr=np.expand_dims(img_arr,axis=-1)
                 img_l.append(img_arr)
         img=np.stack(img_l)
-        return img
+        return input_image
 
 def set_input_tensor(interpreter, image):
     """Sets the input tensor."""
