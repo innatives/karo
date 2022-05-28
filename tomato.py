@@ -67,17 +67,7 @@ def get_prediction(u_img):
 
 user_option = st.radio("Select an Option: ", ('Upload','URL'))
 st.write(user_option)
-if (user_option=='URL'):
-    url = st.text_input('Enter Your Image Url(No quotes plse)')
-    st.text('You have an error message if you take more than 5 sec to enter URL.')
-    st.text("You may ignore error and proceed")
-    time.sleep(5)
-    st.write(url)    
-    urllib.request.urlretrieve(url,"user_image.jpg")
-    u_img = Image.open("user_image.jpg")
-    u_img = u_img.resize((229,229))
-    show.image(u_img, 'Uploaded Image')
-elif (user_option=='Upload') :
+
     #take an image from user and run model prediction
     st.sidebar.title("Upload Image")
     #Give an option for uploading a file
