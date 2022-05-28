@@ -18,7 +18,7 @@ st.text("Karointhegarden")
 st.write('\n')
 
 image = Image.open('user_image.png')
-u_img=  image.resize((299,299),Image.BILINEAR)
+u_img=  image.resize((299,299))
 show = st.image(u_img)
 
 #Disabling warning
@@ -27,7 +27,7 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
   
 #function to process image
 def process_image(img):    
-    img = img.resize((224,224),Image.BILINEAR)
+    img = img.resize((224,224),Image.NEAREST)
     x = np.array(img,dtype='float32')
     x = x/255
     x = np.expand_dims(x, axis=0)
