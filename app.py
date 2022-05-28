@@ -14,16 +14,7 @@ uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
 tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
 tflite_interpreter.allocate_tensors()
-input_details = tflite_interpreter.get_input_details()
-output_details = tflite_interpreter.get_output_details()
 
-print()
-print("Input details:")
-st.success(input_details)
-print()
-print("Output details:")
-print(output_details)
-print()
 
 def set_input_tensor(interpreter, image):
     """Sets the input tensor."""
