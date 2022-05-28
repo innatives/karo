@@ -1,55 +1,72 @@
+# Imports
 import streamlit as st
 import tensorflow as tf
+import os
 import numpy as np
-from PIL import Image
+class_names = ["Cat", "Dog"]
+
+## Page Title
+st.set_page_config(page_title = "Cats vs Dogs Image Classification")
+st.title(" Cat vs Dogs Image Classification")
+st.markdown("---")
+
+## Sidebar
+st.sidebar.header("TF Lite Models")
+display = ("Select a Model","Converted FP-16 Quantized Model", "Converted Integer Quantized Model", "Converted Dynamic Range Quantized Model","Created FP-16 Quantized Model", "Created Quantized Model", "Created Dynamic Range Quantized Model")
+options = list(range(len(display)))
+value = st.sidebar.selectbox("Model", options, format_func=lambda x: display[x])
+print(value)
+
+if value == 1:
+    tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
+    tflite_interpreter.allocate_tensors()
+if value == 2:
+    tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
+    tflite_interpreter.allocate_tensors()
+if value == 3:
+    tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
+    tflite_interpreter.allocate_tensors()
+if value == 4:
+    tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
+    tflite_interpreter.allocate_tensors()
+if value == 5:
+    tflite_interpreter = tf.lite.Interpreter(model_path='saved_model.tflite')
+    tflite_interpreter.allocate_tensors()
+if value == 6:
+    tflite_interpreter = tf.lite.Interpreter(model_path='models\created_model_dynamic.tflite')
+    tflite_interpreter.allocate_tensors()
+
+def set_input_tensor(interpreter, image):
+    """Sets the input tensor."""
+    tensor_index = interpreter.get_input_details()[0]['index']
+    input_tensor = interpreter.tensor(tensor_index)()[0]
+    input_tensor[:, :] = image
+
+def get_predictions(input_image):
+    output_details = tflite_interpreter.get_output_details()
+    set_input_tensor(tflite_interpreter, input_image)
+    tflite_interpreter.invoke()
+    tflite_model_prediction = tflite_interpreter.get_tensor(output_details[0]["index"])
+    tflite_model_prediction = tflite_model_prediction.squeeze().argmax(axis = 0)
+    pred_class = class_names[tflite_model_prediction]
+    return pred_class
 
 
-st.set_option('deprecation.showfileUploaderEncoding', False)
-
-@st.cache(allow_output_mutation=True)
-def load_model():
-	model = tf.keras.models.load_model('./flower_model_trained.hdf5')
-	return model
-
-
-def predict_class(image, model):
-
-	image = tf.cast(image, tf.float32)
-	image = tf.image.resize(image, [180, 180])
-
-	image = np.expand_dims(image, axis = 0)
-
-	prediction = model.predict(image)
-
-	return prediction
+## Input Fields
+uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
+if uploaded_file is not None:
+    with open(os.path.join("tempDir",uploaded_file.name),"wb") as f:
+        f.write(uploaded_file.getbuffer())
+    path = os.path.join("tempDir",uploaded_file.name)
+    img = tf.keras.preprocessing.image.load_img(path , grayscale=False, color_mode='rgb', target_size=(224,224,3), interpolation='nearest')
+    st.image(img)
+    print(value)
+    if value == 2 or value == 5:
+        img = tf.image.convert_image_dtype(img, tf.uint8)
+    img_array = tf.keras.preprocessing.image.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0)
 
 
-model = load_model()
-st.title('Flower Classifier')
-
-file = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
-
-
-if file is None:
-	st.text('Waiting for upload....')
-
-else:
-	slot = st.empty()
-	slot.text('Running inference....')
-
-	test_image = Image.open(file)
-
-	st.image(test_image, caption="Input Image", width = 400)
-
-	pred = predict_class(np.asarray(test_image), model)
-
-	class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
-
-	result = class_names[np.argmax(pred)]
-
-	output = 'The image is a ' + result
-
-	slot.text('Done')
-
-	st.success(output)
-
+if st.button("Get Predictions"):
+    suggestion = get_predictions(input_image =img_array)
+    st.success(suggestion)
