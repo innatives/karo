@@ -77,25 +77,9 @@ st.title('Flower Classifier')
 inp_t = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
 
 
-if inp_t is None:
-	st.text('Waiting for upload....')
-
-else:
-	slot = st.empty()
-	slot.text('Running inference....')
-
-	test_image = Image.open(file)
-
-	st.image(test_image, caption="Input Image", width = 400)
-
-	pred = predict_class(np.asarray(test_image), model)
-
-	class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
-
-	result = class_names[np.argmax(pred)]
-
-	output = 'The image is a ' + result
-
-	slot.text('Done')
-
-	st.success(output)
+if inp_t:
+        img = load_img(inp_t)
+        
+        st.warning('** Uploaded {} images [View images in side Panel]'.format(img.shape[0]))
+         
+        res_prob,res = np.array(pred(img))  # convert predictions list to array
