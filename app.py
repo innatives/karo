@@ -69,7 +69,9 @@ else:
 	slot.text('Done')
 
 	st.success(output)
-
+	
+img_array = tf.keras.preprocessing.image.img_to_array(test_image)
+img_array = tf.expand_dims(img_array, 0)
 
 if st.button("Get Predictions"):
     suggestion = get_predictions(input_image =img_array)
