@@ -27,7 +27,7 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
   
 #function to process image
 def process_image(img):    
-    img = img.resize((224,224),Image.NEAREST)
+    img = img.resize((224,224),Image.BICUBIC)
     x = np.array(img,dtype='float32')
     x = x/255
     x = np.expand_dims(x, axis=0)
