@@ -27,7 +27,7 @@ def load_img(path):
         for i in path:
                 img_byte=i.read()
                 img=Image.open(io.BytesIO(img_byte))
-                img=img.resize((256,256),Image.ANTIALIAS)
+                img=img.resize((224,224),Image.ANTIALIAS)
                 if img.mode!='L':
                         img=img.convert('L')
                 img_arr=np.array(img,dtype='float32')/255
@@ -43,7 +43,7 @@ def pred(img):
     interpreter = tf.lite.Interpreter(model_path = r'saved_model.tflite')
 
     # setting input size
-    interpreter.resize_tensor_input(0, [img.shape[0],256,256,1], strict=True)
+    interpreter.resize_tensor_input(0, [img.shape[0],224,224,1], strict=True)
     interpreter.allocate_tensors()
     #interpreter = load_model()
     # Get input and output tensors.
