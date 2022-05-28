@@ -87,16 +87,16 @@ elif (user_option=='Upload') :
         u_img = u_img.resize((299,299))
         show.image(u_img, 'Uploaded Image')
     elif uploaded_file is None:        
-        st.sidebar.write("Please upload an Image to Classify")
+        st.sidebar.write("Załaduj plik")
 
-#st.sidebar.button("Click Here to Classify")
+#st.sidebar.button("Kliknij tutaj aby sklasyfikować")
 
-with st.spinner('Classifying ...'):            
+with st.spinner('Klasyfikacja ...'):            
     prediction = get_prediction(u_img)
     time.sleep(2)
     st.success('Done! Please check output in sidebar..')
 
-st.sidebar.header("Model Prediction of Probabilities and Infernce: ")
+st.sidebar.header("Możliwości: ")
 st.sidebar.write(prediction)
     
 # upload pdf file with instructions
