@@ -69,15 +69,15 @@ def get_prediction(u_img):
 # st.write(user_option)
 
 #take an image from user and run model prediction
-st.sidebar.title("Upload Image")
+st.title("Upload Image")
  #Give an option for uploading a file
-uploaded_file = st.sidebar.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
+uploaded_file = st.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
 if uploaded_file is not None:
         u_img = Image.open(uploaded_file)
         u_img = u_img.resize((224,224))
         show.image(u_img, 'Uploaded Image')
 elif uploaded_file is None:        
-        st.sidebar.write("Załaduj plik")
+        st.write("Załaduj plik")
 
 #st.sidebar.button("Kliknij tutaj aby sklasyfikować")
 
