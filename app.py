@@ -19,7 +19,7 @@ def pred(img):
     interpreter = tf.lite.Interpreter(model_path = r'saved_model.tflite')
 
     # setting input size
-    interpreter.resize_tensor_input(0, [img.shape[0],256,256,1], strict=True)
+    interpreter.resize_tensor_input(0, [img.shape[0],224,224,1], strict=True)
     interpreter.allocate_tensors()
     #interpreter = load_model()
     # Get input and output tensors.
@@ -55,33 +55,4 @@ def predict_class(image, model):
 
 	return prediction
 
-
-model = load_model()
-st.title('Flower Classifier')
-
-file = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
-
-
-if file is None:
-	st.text('Waiting for upload....')
-
-else:
-	slot = st.empty()
-	slot.text('Running inference....')
-
-	test_image = Image.open(file)
-
-	st.image(test_image, caption="Input Image", width = 400)
-
-	pred = predict_class(np.asarray(test_image), model)
-
-	class_names = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
-
-	result = class_names[np.argmax(pred)]
-
-	output = 'The image is a ' + result
-
-	slot.text('Done')
-
-	st.success(output)
 
