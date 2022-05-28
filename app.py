@@ -32,8 +32,6 @@ def load_model():
 
 st.title('Flower Classifier')
 
-file = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
-
 ## Input Fields
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 if uploaded_file is not None:
