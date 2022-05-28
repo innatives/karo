@@ -84,7 +84,7 @@ elif (user_option=='Upload') :
     uploaded_file = st.sidebar.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
     if uploaded_file is not None:
         u_img = Image.open(uploaded_file)
-        u_img = u_img.resize((299,299))
+        u_img = u_img.resize((2424,224))
         show.image(u_img, 'Uploaded Image')
     elif uploaded_file is None:        
         st.sidebar.write("Załaduj plik")
