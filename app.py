@@ -32,10 +32,6 @@ st.title('Pomidory')
 ## Input Fields
 uploaded_file = st.file_uploader("Upload a Image", type=["jpg","png", 'jpeg'])
 
-def img()
-    uploaded_file = tf.image.resize(image, [224, 224])
-    uploaded_file = np.expand_dims(image, axis = 0)
-    return image2
 
 if uploaded_file is not None:		
     img = Image.open(image2)
