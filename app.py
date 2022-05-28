@@ -10,16 +10,12 @@ uploaded_file = st.file_uploader(label='Upload MRI here')
 
 def load_img(path):
         ## reading file object and making it to pil image and to np array
-        img_l=[]
-        for i in path:
-                img_byte=i.read()
-                img=Image.open(io.BytesIO(img_byte))
-                img=img.resize((256,256),Image.ANTIALIAS)
-                if img.mode!='L':
-                        img=img.convert('L')
-                img_arr=np.array(img,dtype='float32')/255
-                img_arr=np.expand_dims(img_arr,axis=-1)
-                img_l.append(img_arr)
+        img_byte=i.read()
+        img=Image.open(io.BytesIO(img_byte))
+        img=img.resize((256,256),Image.ANTIALIAS)
+        img_arr=np.array(img,dtype='float32')/255
+        img_arr=np.expand_dims(img_arr,axis=-1)
+        img_l.append(img_arr)
         img=np.stack(img_l)
         return img
 
