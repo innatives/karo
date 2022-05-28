@@ -68,10 +68,10 @@ def get_prediction(u_img):
 user_option = st.radio("Select an Option: ", ('Upload','URL'))
 st.write(user_option)
 
-    #take an image from user and run model prediction
-    st.sidebar.title("Upload Image")
-    #Give an option for uploading a file
-    uploaded_file = st.sidebar.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
+#take an image from user and run model prediction
+st.sidebar.title("Upload Image")
+ #Give an option for uploading a file
+uploaded_file = st.sidebar.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
     if uploaded_file is not None:
         u_img = Image.open(uploaded_file)
         u_img = u_img.resize((224,224))
