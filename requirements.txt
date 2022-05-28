@@ -3,3 +3,6 @@ numpy
 opencv-python
 tensorflow
 tensorflow-estimator
+tensorflow-cpu
+pillow
+matplotlib
