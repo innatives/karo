@@ -19,8 +19,6 @@ def load_img(path):
                 img_byte=i.read()
                 img=Image.open(io.BytesIO(img_byte))
                 img=img.resize((224,224),Image.ANTIALIAS)
-                if img.mode!='L':
-                        img=img.convert('L')
                 img_arr=np.array(img,dtype='float32')/255
                 img_arr=np.expand_dims(img_arr,axis=-1)
                 img_l.append(img_arr)
