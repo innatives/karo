@@ -97,5 +97,5 @@ with st.spinner('Klasyfikacja ...'):
     st.success('Done! Please check output in sidebar..')
 
 st.sidebar.header("Możliwości: ")
-st.sidebar.write(prediction)
+st.success(prediction)
     
