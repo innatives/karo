@@ -1,16 +1,23 @@
-import streamlit as st
-import tensorflow as tf
+import io
 import numpy as np
 from PIL import Image
+import streamlit as st
+import tensorflow as tf
+import matplotlib.pyplot as plt
 
+st.title('Brain \U0001F9E0 Tumor Detector ')
 
-st.set_option('deprecation.showfileUploaderEncoding', False)
+st.subheader('Find out whether there is a tumor \U0001F534 in the brain (or) \
+         not \U0001F7E2 by uploading the MRI \U0001F4C1 of it ')
+          
 
-@st.cache(allow_output_mutation=True)
-def load_model():
-	model = tf.keras.models.load_model('./flower_model_trained.hdf5')
-	return model
+class_labels={0:'No \U0001F7E2',1:'a \U0001F534'}
 
+#st.subheader('Upload Brain MRI'+'\U0001F4C1')
+
+st.write('Find some MRI images here : https://www.kaggle.com/navoneel/brain-mri-images-for-brain-tumor-detection')
+
+inp_t = st.file_uploader(label='Upload MRI here',accept_multiple_files=True)
 
 #load image
 @st.cache(show_spinner=False)
@@ -33,10 +40,10 @@ def load_img(path):
 @st.cache(show_spinner=False)
 def pred(img):
     # Load TFLite model and allocate tensors.
-    interpreter = tf.lite.Interpreter(model_path = r'saved_model.tflite')
+    interpreter = tf.lite.Interpreter(model_path = r'tumor_lite_model.tflite')
 
     # setting input size
-    interpreter.resize_tensor_input(0, [img.shape[0],224,224,1], strict=True)
+    interpreter.resize_tensor_input(0, [img.shape[0],256,256,1], strict=True)
     interpreter.allocate_tensors()
     #interpreter = load_model()
     # Get input and output tensors.
@@ -61,22 +68,9 @@ def pred(img):
  
     return tflite_results,tf_results
 
-def predict_class(image, model):
+vis_img = st.sidebar.checkbox('Show Uploaded Images')
 
-	image = tf.cast(image, tf.float32)
-	image = tf.image.resize(image, [180, 180])
-
-	image = np.expand_dims(image, axis = 0)
-
-	prediction = model.predict(image)
-
-	return prediction
-
-st.title('Flower Classifier')
-
-inp_t = st.file_uploader("Upload an image of a flower", type=["jpg", "png"])
-
-
+# if file is uploaded
 if inp_t:
         img = load_img(inp_t)
         
@@ -105,3 +99,8 @@ if inp_t:
                         st.sidebar.image(img[i],use_column_width=True)
         st.markdown('---')
         st.error('Dont conclude by looking at predictions, just take them as a reference!!')
+
+## prints model arch flow chart
+#if st.sidebar.checkbox('Model Architecture'):            
+#        st.sidebar.write(model)
+        
