@@ -68,7 +68,7 @@ def get_prediction(u_img):
 # st.write(user_option)
 
 #take an image from user and run model prediction
-st.title("Dodaj plik")
+st.subheader("Dodaj plik")
  #Give an option for uploading a file
 uploaded_file = st.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
 if uploaded_file is not None:
@@ -85,5 +85,5 @@ with st.spinner('Klasyfikacja ...'):
     time.sleep(2)
   # st.success('Done! Please check output in sidebar..')
 
-st.header("Choroba: ")
+st.header("Rezultat: ")
 st.success(prediction)
