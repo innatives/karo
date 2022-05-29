@@ -17,7 +17,7 @@ st.text("Karointhegarden")
 # For newline
 st.write('\n')
 
-st.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
+uploaded_file = st.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
 image = Image.open(uploaded_file)
 u_img=  image.resize((299,299))
 show = st.image(u_img)
