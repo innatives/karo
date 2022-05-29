@@ -11,17 +11,15 @@ import base64
 
 
 # streamlit interface 
-st.title("Wróżenie z liścia")
+st.title("Choroby pomidorów")
 st.text("Karointhegarden")
 # st.text('This App classifies a flower image into Daisy/Dandelion/Rose/Sunflower/Tulip')
 # For newline
 st.write('\n')
 
-uploaded_file = st.file_uploader(" ",type=['png', 'jpg', 'jpeg'] )
-image = Image.open(uploaded_file)
+image = Image.open('user_image.png')
 u_img=  image.resize((299,299))
 show = st.image(u_img)
-
 
 #Disabling warning
 st.set_option('deprecation.showfileUploaderEncoding', False)
