@@ -22,6 +22,7 @@ image = Image.open(uploaded_file)
 u_img=  image.resize((299,299))
 show = st.image(u_img)
 
+
 #Disabling warning
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
